@@ -9,38 +9,293 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
+import { Route as RegisterRouteImport } from './routes/register'
+import { Route as PricingRouteImport } from './routes/pricing'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
+import { Route as FeaturesRouteImport } from './routes/features'
+import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ToolsPrivacyRouteImport } from './routes/tools.privacy'
+import { Route as ToolsLegalRouteImport } from './routes/tools.legal'
+import { Route as ToolsImprintRouteImport } from './routes/tools.imprint'
+import { Route as ToolsContractRouteImport } from './routes/tools.contract'
+import { Route as ToolsBusinessRouteImport } from './routes/tools.business'
+import { Route as LegalPrivacyRouteImport } from './routes/legal.privacy'
+import { Route as LegalImprintRouteImport } from './routes/legal.imprint'
 
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RegisterRoute = RegisterRouteImport.update({
+  id: '/register',
+  path: '/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PricingRoute = PricingRouteImport.update({
+  id: '/pricing',
+  path: '/pricing',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ForgotPasswordRoute = ForgotPasswordRouteImport.update({
+  id: '/forgot-password',
+  path: '/forgot-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FeaturesRoute = FeaturesRouteImport.update({
+  id: '/features',
+  path: '/features',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ToolsPrivacyRoute = ToolsPrivacyRouteImport.update({
+  id: '/tools/privacy',
+  path: '/tools/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ToolsLegalRoute = ToolsLegalRouteImport.update({
+  id: '/tools/legal',
+  path: '/tools/legal',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ToolsImprintRoute = ToolsImprintRouteImport.update({
+  id: '/tools/imprint',
+  path: '/tools/imprint',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ToolsContractRoute = ToolsContractRouteImport.update({
+  id: '/tools/contract',
+  path: '/tools/contract',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ToolsBusinessRoute = ToolsBusinessRouteImport.update({
+  id: '/tools/business',
+  path: '/tools/business',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LegalPrivacyRoute = LegalPrivacyRouteImport.update({
+  id: '/legal/privacy',
+  path: '/legal/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LegalImprintRoute = LegalImprintRouteImport.update({
+  id: '/legal/imprint',
+  path: '/legal/imprint',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
+  '/dashboard': typeof DashboardRoute
+  '/features': typeof FeaturesRoute
+  '/forgot-password': typeof ForgotPasswordRoute
+  '/login': typeof LoginRoute
+  '/pricing': typeof PricingRoute
+  '/register': typeof RegisterRoute
+  '/reset-password': typeof ResetPasswordRoute
+  '/legal/imprint': typeof LegalImprintRoute
+  '/legal/privacy': typeof LegalPrivacyRoute
+  '/tools/business': typeof ToolsBusinessRoute
+  '/tools/contract': typeof ToolsContractRoute
+  '/tools/imprint': typeof ToolsImprintRoute
+  '/tools/legal': typeof ToolsLegalRoute
+  '/tools/privacy': typeof ToolsPrivacyRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
+  '/dashboard': typeof DashboardRoute
+  '/features': typeof FeaturesRoute
+  '/forgot-password': typeof ForgotPasswordRoute
+  '/login': typeof LoginRoute
+  '/pricing': typeof PricingRoute
+  '/register': typeof RegisterRoute
+  '/reset-password': typeof ResetPasswordRoute
+  '/legal/imprint': typeof LegalImprintRoute
+  '/legal/privacy': typeof LegalPrivacyRoute
+  '/tools/business': typeof ToolsBusinessRoute
+  '/tools/contract': typeof ToolsContractRoute
+  '/tools/imprint': typeof ToolsImprintRoute
+  '/tools/legal': typeof ToolsLegalRoute
+  '/tools/privacy': typeof ToolsPrivacyRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
+  '/dashboard': typeof DashboardRoute
+  '/features': typeof FeaturesRoute
+  '/forgot-password': typeof ForgotPasswordRoute
+  '/login': typeof LoginRoute
+  '/pricing': typeof PricingRoute
+  '/register': typeof RegisterRoute
+  '/reset-password': typeof ResetPasswordRoute
+  '/legal/imprint': typeof LegalImprintRoute
+  '/legal/privacy': typeof LegalPrivacyRoute
+  '/tools/business': typeof ToolsBusinessRoute
+  '/tools/contract': typeof ToolsContractRoute
+  '/tools/imprint': typeof ToolsImprintRoute
+  '/tools/legal': typeof ToolsLegalRoute
+  '/tools/privacy': typeof ToolsPrivacyRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/admin'
+    | '/dashboard'
+    | '/features'
+    | '/forgot-password'
+    | '/login'
+    | '/pricing'
+    | '/register'
+    | '/reset-password'
+    | '/legal/imprint'
+    | '/legal/privacy'
+    | '/tools/business'
+    | '/tools/contract'
+    | '/tools/imprint'
+    | '/tools/legal'
+    | '/tools/privacy'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/admin'
+    | '/dashboard'
+    | '/features'
+    | '/forgot-password'
+    | '/login'
+    | '/pricing'
+    | '/register'
+    | '/reset-password'
+    | '/legal/imprint'
+    | '/legal/privacy'
+    | '/tools/business'
+    | '/tools/contract'
+    | '/tools/imprint'
+    | '/tools/legal'
+    | '/tools/privacy'
+  id:
+    | '__root__'
+    | '/'
+    | '/admin'
+    | '/dashboard'
+    | '/features'
+    | '/forgot-password'
+    | '/login'
+    | '/pricing'
+    | '/register'
+    | '/reset-password'
+    | '/legal/imprint'
+    | '/legal/privacy'
+    | '/tools/business'
+    | '/tools/contract'
+    | '/tools/imprint'
+    | '/tools/legal'
+    | '/tools/privacy'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRoute
+  DashboardRoute: typeof DashboardRoute
+  FeaturesRoute: typeof FeaturesRoute
+  ForgotPasswordRoute: typeof ForgotPasswordRoute
+  LoginRoute: typeof LoginRoute
+  PricingRoute: typeof PricingRoute
+  RegisterRoute: typeof RegisterRoute
+  ResetPasswordRoute: typeof ResetPasswordRoute
+  LegalImprintRoute: typeof LegalImprintRoute
+  LegalPrivacyRoute: typeof LegalPrivacyRoute
+  ToolsBusinessRoute: typeof ToolsBusinessRoute
+  ToolsContractRoute: typeof ToolsContractRoute
+  ToolsImprintRoute: typeof ToolsImprintRoute
+  ToolsLegalRoute: typeof ToolsLegalRoute
+  ToolsPrivacyRoute: typeof ToolsPrivacyRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/register': {
+      id: '/register'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof RegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pricing': {
+      id: '/pricing'
+      path: '/pricing'
+      fullPath: '/pricing'
+      preLoaderRoute: typeof PricingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/forgot-password': {
+      id: '/forgot-password'
+      path: '/forgot-password'
+      fullPath: '/forgot-password'
+      preLoaderRoute: typeof ForgotPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/features': {
+      id: '/features'
+      path: '/features'
+      fullPath: '/features'
+      preLoaderRoute: typeof FeaturesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,11 +303,75 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/tools/privacy': {
+      id: '/tools/privacy'
+      path: '/tools/privacy'
+      fullPath: '/tools/privacy'
+      preLoaderRoute: typeof ToolsPrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tools/legal': {
+      id: '/tools/legal'
+      path: '/tools/legal'
+      fullPath: '/tools/legal'
+      preLoaderRoute: typeof ToolsLegalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tools/imprint': {
+      id: '/tools/imprint'
+      path: '/tools/imprint'
+      fullPath: '/tools/imprint'
+      preLoaderRoute: typeof ToolsImprintRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tools/contract': {
+      id: '/tools/contract'
+      path: '/tools/contract'
+      fullPath: '/tools/contract'
+      preLoaderRoute: typeof ToolsContractRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tools/business': {
+      id: '/tools/business'
+      path: '/tools/business'
+      fullPath: '/tools/business'
+      preLoaderRoute: typeof ToolsBusinessRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/legal/privacy': {
+      id: '/legal/privacy'
+      path: '/legal/privacy'
+      fullPath: '/legal/privacy'
+      preLoaderRoute: typeof LegalPrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/legal/imprint': {
+      id: '/legal/imprint'
+      path: '/legal/imprint'
+      fullPath: '/legal/imprint'
+      preLoaderRoute: typeof LegalImprintRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRoute: AdminRoute,
+  DashboardRoute: DashboardRoute,
+  FeaturesRoute: FeaturesRoute,
+  ForgotPasswordRoute: ForgotPasswordRoute,
+  LoginRoute: LoginRoute,
+  PricingRoute: PricingRoute,
+  RegisterRoute: RegisterRoute,
+  ResetPasswordRoute: ResetPasswordRoute,
+  LegalImprintRoute: LegalImprintRoute,
+  LegalPrivacyRoute: LegalPrivacyRoute,
+  ToolsBusinessRoute: ToolsBusinessRoute,
+  ToolsContractRoute: ToolsContractRoute,
+  ToolsImprintRoute: ToolsImprintRoute,
+  ToolsLegalRoute: ToolsLegalRoute,
+  ToolsPrivacyRoute: ToolsPrivacyRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
