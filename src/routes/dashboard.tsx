@@ -7,7 +7,7 @@ import { useAuth } from "@/lib/auth";
 import { useI18n } from "@/lib/i18n";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { Briefcase, FileText, Shield, Scale, FileSignature, Sparkles, Download, Trash2, Ticket } from "lucide-react";
+import { Briefcase, FileText, Shield, Scale, FileSignature, Sparkles, Download, Trash2, Ticket, MessageSquare } from "lucide-react";
 import { downloadPdf } from "@/lib/pdf";
 
 export const Route = createFileRoute("/dashboard")({
@@ -43,6 +43,7 @@ function Dashboard() {
   }, [user]);
 
   const tools = [
+    { icon: MessageSquare, key: "chat", to: "/chat" },
     { icon: Briefcase, key: "business", to: "/tools/business" },
     { icon: FileText, key: "imprint", to: "/tools/imprint" },
     { icon: Shield, key: "privacy", to: "/tools/privacy" },
@@ -136,7 +137,7 @@ function Dashboard() {
                     <p className="text-xs text-muted-foreground">{new Date(d.created_at).toLocaleString()} · {d.type}</p>
                   </div>
                   <div className="flex gap-2">
-                    <Button size="sm" variant="outline" onClick={() => downloadPdf(d.title, d.content)}>
+                    <Button size="sm" variant="outline" onClick={() => downloadPdf(d.title, d.content, { documentId: d.id, toolType: d.type, legal: d.type !== "business" })}>
                       <Download className="h-4 w-4" />
                     </Button>
                     <Button size="sm" variant="ghost" onClick={() => deleteDoc(d.id)}>
