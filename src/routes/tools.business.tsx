@@ -18,6 +18,7 @@ function BusinessTool() {
       title={t("tool.business.title")}
       initial={{ idea: "", industry: "", target: "" }}
       buildTitle={(i) => `Businessplan: ${i.idea?.slice(0, 60) || "Untitled"}`}
+      legal={false}
     >
       {(input, set) => (
         <>

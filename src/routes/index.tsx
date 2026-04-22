@@ -2,13 +2,13 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Header, Footer } from "@/components/layout/Header";
 import { Button } from "@/components/ui/button";
 import { useI18n } from "@/lib/i18n";
-import { Sparkles, FileText, Shield, Scale, FileSignature, Download, Briefcase, ArrowRight } from "lucide-react";
+import { Sparkles, FileText, Shield, Scale, FileSignature, Download, Briefcase, ArrowRight, MessageSquare } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "AurumAI – Ihr KI Business-Assistent" },
-      { name: "description", content: "Businesspläne, Verträge, Impressum, Datenschutz und Rechtsberatung per KI." },
+      { title: "JDS Business AI – Ihr KI Business-Assistent" },
+      { name: "description", content: "Businesspläne, Verträge, Impressum, Datenschutz, KI-Chat und Rechtsberatung per KI." },
     ],
   }),
   component: Home,
@@ -23,6 +23,7 @@ function Home() {
     { icon: Scale, key: "legal" as const },
     { icon: FileSignature, key: "contract" as const },
     { icon: Download, key: "pdf" as const },
+    { icon: MessageSquare, key: "chat" as const },
   ];
 
   return (
