@@ -10,23 +10,23 @@ type Tool = "business" | "imprint" | "privacy" | "legal" | "contract";
 
 function buildPrompt(tool: Tool, lang: string, input: Record<string, string>) {
   const langName = lang === "en" ? "English" : "German (Deutsch)";
-  const sys = `You are an expert business and legal AI assistant. Always respond in ${langName}. Format your output cleanly with markdown headings (## for sections) and clear paragraphs. Be thorough but precise.`;
+  const sys = `You are JDS Business AI, an expert business and legal AI assistant. Always respond in ${langName}. Format your output with markdown headings (## for sections, ### for sub) and clear paragraphs. Be thorough but precise.`;
 
   switch (tool) {
     case "business":
       return {
         sys: sys + " You are a senior strategy consultant. Produce structured, actionable business plans.",
-        user: `Create a comprehensive business plan with the following sections: Executive Summary, Business Idea, Market Analysis, Target Audience, Competitive Analysis, Marketing Strategy, Operations, Financial Plan (with rough estimates), Risks, Roadmap.\n\nIdea: ${input.idea}\nIndustry: ${input.industry}\nTarget audience: ${input.target}`,
+        user: `Create a comprehensive business plan with sections: Executive Summary, Business Idea, Market Analysis, Target Audience, Competitive Analysis, Marketing Strategy, Operations, Financial Plan (rough estimates), Risks, Roadmap.\n\nIdea: ${input.idea}\nIndustry: ${input.industry}\nTarget audience: ${input.target}`,
       };
     case "imprint":
       return {
         sys: sys + " You generate German TMG/DDG-compliant Impressum text.",
-        user: `Generate a legally compliant Impressum (German law).\nCompany: ${input.company}\nOwner/Director: ${input.owner}\nAddress: ${input.address}\nEmail: ${input.email}\nPhone: ${input.phone}\n\nInclude all required fields. Add the EU-Streitschlichtung reference and OS platform link.`,
+        user: `Generate a legally compliant Impressum (German law).\nCompany: ${input.company}\nOwner/Director: ${input.owner}\nAddress: ${input.address}\nEmail: ${input.email}\nPhone: ${input.phone}\n\nInclude all required fields. Add EU-Streitschlichtung reference and OS platform link.`,
       };
     case "privacy":
       return {
         sys: sys + " You generate GDPR-compliant privacy policies.",
-        user: `Generate a complete GDPR-compliant privacy policy for the following site:\nWebsite: ${input.website}\nController: ${input.company}\nTools used: ${input.tools}\n\nCover: data controller, data collection, cookies, third-party services, user rights (Art. 15-22 GDPR), contact, complaint right.`,
+        user: `Generate a complete GDPR-compliant privacy policy.\nWebsite: ${input.website}\nController: ${input.company}\nTools used: ${input.tools}\n\nCover: data controller, data collection, cookies, third-party services, user rights (Art. 15-22 GDPR), contact, complaint right.`,
       };
     case "legal":
       return {
@@ -59,7 +59,6 @@ Deno.serve(async (req) => {
 
     const { tool, lang, input, title } = await req.json() as { tool: Tool; lang: string; input: Record<string, string>; title: string };
 
-    // Consume credit (atomic)
     const { data: ok, error: cErr } = await supabase.rpc("consume_credit");
     if (cErr) throw cErr;
     if (!ok) {
@@ -91,15 +90,17 @@ Deno.serve(async (req) => {
     const data = await resp.json();
     const content: string = data.choices?.[0]?.message?.content ?? "";
 
-    // Save document
-    await supabase.from("documents").insert({
+    const { data: inserted } = await supabase.from("documents").insert({
       user_id: userData.user.id,
       type: tool,
       title,
       content,
-    });
+    }).select("id").single();
 
-    return new Response(JSON.stringify({ content }), { headers: { ...cors, "Content-Type": "application/json" } });
+    return new Response(
+      JSON.stringify({ content, documentId: inserted?.id ?? null }),
+      { headers: { ...cors, "Content-Type": "application/json" } }
+    );
   } catch (e) {
     console.error(e);
     return new Response(JSON.stringify({ error: e instanceof Error ? e.message : "unknown" }), { status: 500, headers: { ...cors, "Content-Type": "application/json" } });

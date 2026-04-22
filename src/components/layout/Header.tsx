@@ -2,7 +2,8 @@ import { Link, useNavigate } from "@tanstack/react-router";
 import { useAuth } from "@/lib/auth";
 import { useI18n } from "@/lib/i18n";
 import { Button } from "@/components/ui/button";
-import { Sparkles, Globe, LogOut, Shield } from "lucide-react";
+import { Globe, LogOut, Shield, Sparkles } from "lucide-react";
+import logo from "@/assets/jds-logo.png";
 
 export function Header() {
   const { user, isAdmin, signOut } = useAuth();
@@ -17,12 +18,10 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-border/40 bg-background/80 backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
-        <Link to="/" className="flex items-center gap-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-gold shadow-gold">
-            <Sparkles className="h-4 w-4 text-gold-foreground" />
-          </div>
+        <Link to="/" className="flex items-center gap-2.5">
+          <img src={logo} alt="JDS Business AI" width={36} height={36} className="h-9 w-9 rounded-lg object-contain" />
           <span className="text-lg font-semibold tracking-tight">
-            <span className="text-gradient-gold">Aurum</span>AI
+            <span className="text-gradient-gold">JDS</span> Business AI
           </span>
         </Link>
 
@@ -34,9 +33,14 @@ export function Header() {
             {t("nav.pricing")}
           </Link>
           {user && (
-            <Link to="/dashboard" className="text-sm text-muted-foreground transition-colors hover:text-foreground">
-              {t("nav.dashboard")}
-            </Link>
+            <>
+              <Link to="/dashboard" className="text-sm text-muted-foreground transition-colors hover:text-foreground">
+                {t("nav.dashboard")}
+              </Link>
+              <Link to="/chat" className="text-sm text-muted-foreground transition-colors hover:text-foreground">
+                {t("nav.chat")}
+              </Link>
+            </>
           )}
           {isAdmin && (
             <Link to="/admin" className="flex items-center gap-1 text-sm text-gold transition-colors hover:text-gold-muted">
@@ -83,7 +87,7 @@ export function Footer() {
       <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-6 md:flex-row">
         <div className="flex items-center gap-2">
           <Sparkles className="h-4 w-4 text-gold" />
-          <span>© {new Date().getFullYear()} AurumAI. {t("footer.rights")}</span>
+          <span>© {new Date().getFullYear()} JDS Business AI. {t("footer.rights")}</span>
         </div>
         <div className="flex gap-6">
           <Link to="/legal/imprint" className="hover:text-foreground">{t("footer.imprint")}</Link>
