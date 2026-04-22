@@ -37,7 +37,7 @@ function Home() {
             {t("hero.badge")}
           </div>
           <h1 className="text-balance text-5xl font-bold leading-[1.05] md:text-7xl">
-            Ihr intelligenter <span className="text-gradient-gold">Business-Assistent</span>
+            <span className="text-gradient-gold">JDS</span> Business AI
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-balance text-lg text-muted-foreground">
             {t("hero.subtitle")}
