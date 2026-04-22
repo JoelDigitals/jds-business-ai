@@ -25,12 +25,21 @@ export function Header() {
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-8 md:flex">
+        <nav className="hidden items-center gap-7 md:flex">
           <Link to="/features" className="text-sm text-muted-foreground transition-colors hover:text-foreground">
             {t("nav.features")}
           </Link>
+          <Link to="/use-cases" className="text-sm text-muted-foreground transition-colors hover:text-foreground">
+            Use Cases
+          </Link>
           <Link to="/pricing" className="text-sm text-muted-foreground transition-colors hover:text-foreground">
             {t("nav.pricing")}
+          </Link>
+          <Link to="/about" className="text-sm text-muted-foreground transition-colors hover:text-foreground">
+            Über uns
+          </Link>
+          <Link to="/contact" className="text-sm text-muted-foreground transition-colors hover:text-foreground">
+            Kontakt
           </Link>
           {user && (
             <>
