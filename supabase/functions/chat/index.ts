@@ -6,7 +6,13 @@ const cors = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
-interface Msg { role: "user" | "assistant" | "system"; content: string; }
+interface Attachment {
+  name: string;
+  type: string; // mime
+  dataUrl?: string; // for images: data:image/...;base64,xxxx
+  text?: string; // for text/pdf-extracted content
+}
+interface Msg { role: "user" | "assistant" | "system"; content: string; attachments?: Attachment[]; }
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { headers: cors });
@@ -29,7 +35,6 @@ Deno.serve(async (req) => {
       return new Response(JSON.stringify({ error: "invalid_payload" }), { status: 400, headers: { ...cors, "Content-Type": "application/json" } });
     }
 
-    // Verify conversation ownership
     const { data: conv, error: cvErr } = await supabase
       .from("chat_conversations").select("id, user_id").eq("id", conversationId).single();
     if (cvErr || !conv || conv.user_id !== userData.user.id) {
@@ -43,20 +48,44 @@ Deno.serve(async (req) => {
     }
 
     const langName = lang === "en" ? "English" : "German (Deutsch)";
-    const sys: Msg = {
-      role: "system",
-      content: `You are JDS Business AI, a friendly expert business assistant. Help with strategy, marketing, finance, legal, operations, and any business question. Always respond in ${langName}. Use markdown formatting where helpful. Be concise but thorough. When giving legal opinions, remind that it is not formal legal advice.`,
+    const sys = {
+      role: "system" as const,
+      content: `You are JDS Business AI, a friendly expert business assistant. Help with strategy, marketing, finance, legal, operations, and any business question. Always respond in ${langName}. Use rich markdown formatting: headings (##, ###), **bold**, *italic*, bullet/numbered lists, tables, and \`code\` blocks where helpful. Structure long answers with clear sections. When giving legal opinions, remind that it is not formal legal advice.`,
     };
 
     const aiKey = Deno.env.get("LOVABLE_API_KEY");
     if (!aiKey) throw new Error("LOVABLE_API_KEY missing");
+
+    // Build messages with multimodal content for images, inline text for text/pdf
+    const apiMessages = messages.map((m) => {
+      const atts = m.attachments ?? [];
+      if (atts.length === 0) return { role: m.role, content: m.content };
+
+      const parts: any[] = [];
+      const textParts: string[] = [];
+      if (m.content) textParts.push(m.content);
+      for (const a of atts) {
+        if (a.type.startsWith("image/") && a.dataUrl) {
+          parts.push({ type: "image_url", image_url: { url: a.dataUrl } });
+        } else if (a.text) {
+          textParts.push(`\n\n--- Anhang: ${a.name} (${a.type}) ---\n${a.text.slice(0, 20000)}\n--- Ende Anhang ---`);
+        } else {
+          textParts.push(`\n\n[Anhang ohne lesbaren Inhalt: ${a.name} (${a.type})]`);
+        }
+      }
+      const textContent = textParts.join("\n");
+      if (parts.length > 0) {
+        return { role: m.role, content: [{ type: "text", text: textContent || "(siehe Anhang)" }, ...parts] };
+      }
+      return { role: m.role, content: textContent };
+    });
 
     const resp = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",
       headers: { Authorization: `Bearer ${aiKey}`, "Content-Type": "application/json" },
       body: JSON.stringify({
         model: "google/gemini-2.5-flash",
-        messages: [sys, ...messages.map((m) => ({ role: m.role, content: m.content }))],
+        messages: [sys, ...apiMessages],
       }),
     });
 
@@ -73,11 +102,15 @@ Deno.serve(async (req) => {
 
     const last = messages[messages.length - 1];
     if (last?.role === "user") {
+      // Persist user message text + small note about attachments (don't store full base64)
+      const attNote = last.attachments?.length
+        ? `\n\n_📎 ${last.attachments.length} Anhang/Anhänge: ${last.attachments.map(a => a.name).join(", ")}_`
+        : "";
       await supabase.from("chat_messages").insert({
         conversation_id: conversationId,
         user_id: userData.user.id,
         role: "user",
-        content: last.content,
+        content: (last.content || "") + attNote,
       });
     }
     await supabase.from("chat_messages").insert({
