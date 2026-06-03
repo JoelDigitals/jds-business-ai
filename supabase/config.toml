@@ -1,1 +1,4 @@
 project_id = "flmnabvnmgheepkmkcar"
+
+[functions.public-api]
+verify_jwt = false

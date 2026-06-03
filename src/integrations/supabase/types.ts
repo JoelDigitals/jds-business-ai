@@ -14,6 +14,42 @@ export type Database = {
   }
   public: {
     Tables: {
+      api_keys: {
+        Row: {
+          created_at: string
+          id: string
+          key_hash: string
+          key_prefix: string
+          label: string
+          last_used_at: string | null
+          revoked: boolean
+          usage_count: number
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          key_hash: string
+          key_prefix: string
+          label: string
+          last_used_at?: string | null
+          revoked?: boolean
+          usage_count?: number
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          key_hash?: string
+          key_prefix?: string
+          label?: string
+          last_used_at?: string | null
+          revoked?: boolean
+          usage_count?: number
+          user_id?: string
+        }
+        Relationships: []
+      }
       chat_conversations: {
         Row: {
           created_at: string
@@ -297,6 +333,8 @@ export type Database = {
       }
       maybe_reset_credits: { Args: { _user_id: string }; Returns: undefined }
       redeem_code: { Args: { _code: string }; Returns: Json }
+      touch_api_key: { Args: { _hash: string }; Returns: undefined }
+      verify_api_key: { Args: { _hash: string }; Returns: string }
     }
     Enums: {
       app_role: "admin" | "user"
