@@ -6,4 +6,19 @@
 // You can pass additional config via defineConfig({ vite: { ... } }) if needed.
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
-export default defineConfig();
+export default defineConfig({
+  vite: {
+    server: {
+      allowedHosts: [
+        "jds-business-ai-zs89.onrender.com",
+        "jds-business-ai.de",
+      ],
+    },
+    preview: {
+      allowedHosts: [
+        "jds-business-ai-zs89.onrender.com",
+        "jds-business-ai.de",
+      ],
+    },
+  },
+});
