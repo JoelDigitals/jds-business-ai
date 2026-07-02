@@ -45,7 +45,12 @@ function Contact() {
                   <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gold/10 text-gold"><Mail className="h-5 w-5" /></div>
                   <div>
                     <p className="font-semibold">E-Mail</p>
-                    <p className="text-sm text-muted-foreground">support@jds-business.ai</p>
+                    <p className="text-sm text-muted-foreground">
+                      <a href="mailto:support@joel-digitals.com" className="hover:text-gold">support@joel-digitals.com</a>
+                    </p>
+                    <p className="mt-1 text-xs text-muted-foreground">
+                      Oder über das <a href="https://joel-digitals.de/support" target="_blank" rel="noopener noreferrer" className="text-gold hover:underline">Support-Portal</a>.
+                    </p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
