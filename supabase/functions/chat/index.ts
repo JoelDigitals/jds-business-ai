@@ -59,10 +59,11 @@ Deno.serve(async (req) => {
       return new Response(JSON.stringify({ error: "forbidden" }), { status: 403, headers: { ...cors, "Content-Type": "application/json" } });
     }
 
-    const { data: ok, error: cErr } = await supabase.rpc("consume_credit");
+    const cost = computeCost(messages);
+    const { data: ok, error: cErr } = await supabase.rpc("consume_credit", { _amount: cost });
     if (cErr) throw cErr;
     if (!ok) {
-      return new Response(JSON.stringify({ error: "no_credits" }), { status: 402, headers: { ...cors, "Content-Type": "application/json" } });
+      return new Response(JSON.stringify({ error: "no_credits", cost }), { status: 402, headers: { ...cors, "Content-Type": "application/json" } });
     }
 
     const langName = lang === "en" ? "English" : "German (Deutsch)";
