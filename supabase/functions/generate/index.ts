@@ -69,10 +69,11 @@ Deno.serve(async (req) => {
 
     const { tool, lang, input, title } = await req.json() as { tool: Tool; lang: string; input: Record<string, string>; title: string };
 
-    const { data: ok, error: cErr } = await supabase.rpc("consume_credit");
+    const cost = TOOL_COST[tool] ?? 2;
+    const { data: ok, error: cErr } = await supabase.rpc("consume_credit", { _amount: cost });
     if (cErr) throw cErr;
     if (!ok) {
-      return new Response(JSON.stringify({ error: "no_credits" }), { status: 402, headers: { ...cors, "Content-Type": "application/json" } });
+      return new Response(JSON.stringify({ error: "no_credits", cost }), { status: 402, headers: { ...cors, "Content-Type": "application/json" } });
     }
 
     const { sys, user } = buildPrompt(tool, lang, input);
