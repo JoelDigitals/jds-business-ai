@@ -8,12 +8,26 @@ import { Check, Sparkles } from "lucide-react";
 export const Route = createFileRoute("/pricing")({
   head: () => ({
     meta: [
-      { title: "Preise – AurumAI" },
-      { name: "description", content: "Free, Pro und Business Pläne. Monatlich oder jährlich per Code aktivierbar." },
+      { title: "Preise – JDS Business AI" },
+      { name: "description", content: "Free, Pro und Business Pläne. Monatlich oder jährlich – bezahlen über Joel Digitals Shop." },
     ],
   }),
   component: Pricing,
 });
+
+const SHOP_BASE = "https://joel-digitals.de/shop";
+
+// slug map per plan/billing
+const SHOP_SLUGS: Record<string, Record<"monthly" | "yearly", string>> = {
+  pro: {
+    monthly: "jds-business-ai-pro-month",
+    yearly: "jds-business-ai-pro-year",
+  },
+  business: {
+    monthly: "jds-business-ai-business-month",
+    yearly: "jds-business-ai-business-year",
+  },
+};
 
 function Pricing() {
   const { t } = useI18n();
@@ -21,28 +35,34 @@ function Pricing() {
 
   const plans = [
     {
-      key: "free",
+      key: "free" as const,
       price: "0",
-      credits: t("pricing.credits.free"),
+      priceSuffix: billing === "monthly" ? "/Monat" : "/Jahr",
+      credits: "10 Credits / Monat",
       features: [t("pricing.feature.all"), t("pricing.feature.pdf")],
       cta: t("pricing.cta.free"),
       highlight: false,
+      href: null,
     },
     {
-      key: "pro",
-      price: billing === "monthly" ? "29" : "290",
-      credits: t("pricing.credits.pro"),
+      key: "pro" as const,
+      price: billing === "monthly" ? "9,99" : "95,90",
+      priceSuffix: billing === "monthly" ? "/Monat" : "/Jahr",
+      credits: "200 Credits / Monat",
       features: [t("pricing.feature.all"), t("pricing.feature.pdf"), t("pricing.feature.history"), t("pricing.feature.support")],
-      cta: t("pricing.cta.paid"),
+      cta: "Jetzt kaufen",
       highlight: true,
+      href: `${SHOP_BASE}/${SHOP_SLUGS.pro[billing]}/`,
     },
     {
-      key: "business",
-      price: billing === "monthly" ? "79" : "790",
-      credits: t("pricing.credits.business"),
+      key: "business" as const,
+      price: billing === "monthly" ? "29,99" : "287,90",
+      priceSuffix: billing === "monthly" ? "/Monat" : "/Jahr",
+      credits: "600 Credits / Monat",
       features: [t("pricing.feature.all"), t("pricing.feature.pdf"), t("pricing.feature.history"), t("pricing.feature.priority")],
-      cta: t("pricing.cta.paid"),
+      cta: "Jetzt kaufen",
       highlight: false,
+      href: `${SHOP_BASE}/${SHOP_SLUGS.business[billing]}/`,
     },
   ];
 
@@ -76,7 +96,7 @@ function Pricing() {
           <div className="mt-16 grid gap-6 md:grid-cols-3">
             {plans.map((p) => (
               <div
-                key={p.key}
+                key={`${p.key}-${billing}`}
                 className={`relative flex flex-col rounded-2xl border p-8 ${p.highlight ? "border-gold bg-gradient-to-b from-gold/10 to-transparent shadow-gold" : "border-border/60 bg-card"}`}
               >
                 {p.highlight && (
@@ -88,7 +108,7 @@ function Pricing() {
                 <p className="mt-1 text-sm text-muted-foreground">{t(`pricing.${p.key}.desc` as never)}</p>
                 <div className="mt-6 flex items-baseline gap-1">
                   <span className="text-5xl font-bold">€{p.price}</span>
-                  <span className="text-sm text-muted-foreground">/{billing === "monthly" ? "mo" : "yr"}</span>
+                  <span className="text-sm text-muted-foreground">{p.priceSuffix}</span>
                 </div>
                 <p className="mt-2 text-sm text-gold">{p.credits}</p>
                 <ul className="mt-6 flex-1 space-y-3">
@@ -98,15 +118,25 @@ function Pricing() {
                     </li>
                   ))}
                 </ul>
-                <Button asChild className={`mt-8 ${p.highlight ? "bg-gradient-gold text-gold-foreground shadow-gold hover:opacity-90" : ""}`} variant={p.highlight ? "default" : "outline"}>
-                  <Link to="/register">{p.cta}</Link>
-                </Button>
+                {p.href ? (
+                  <Button
+                    asChild
+                    className={`mt-8 ${p.highlight ? "bg-gradient-gold text-gold-foreground shadow-gold hover:opacity-90" : ""}`}
+                    variant={p.highlight ? "default" : "outline"}
+                  >
+                    <a href={p.href} target="_blank" rel="noopener noreferrer">{p.cta}</a>
+                  </Button>
+                ) : (
+                  <Button asChild className="mt-8" variant="outline">
+                    <Link to="/register">{p.cta}</Link>
+                  </Button>
+                )}
               </div>
             ))}
           </div>
 
           <p className="mt-10 text-center text-sm text-muted-foreground">
-            ✦ {t("pricing.code.label")}
+            ✦ Nach dem Kauf erhalten Sie per E-Mail einen Aktivierungscode, den Sie im Dashboard einlösen können.
           </p>
         </div>
       </main>
