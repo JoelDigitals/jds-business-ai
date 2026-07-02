@@ -4,6 +4,16 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 const cors = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+  "Access-Control-Allow-Methods": "POST, OPTIONS",
+  "Access-Control-Max-Age": "86400",
+};
+
+const TOOL_COST: Record<string, number> = {
+  business: 5,
+  contract: 4,
+  privacy: 3,
+  imprint: 2,
+  legal: 2,
 };
 
 type Tool = "business" | "imprint" | "privacy" | "legal" | "contract";
@@ -59,10 +69,11 @@ Deno.serve(async (req) => {
 
     const { tool, lang, input, title } = await req.json() as { tool: Tool; lang: string; input: Record<string, string>; title: string };
 
-    const { data: ok, error: cErr } = await supabase.rpc("consume_credit");
+    const cost = TOOL_COST[tool] ?? 2;
+    const { data: ok, error: cErr } = await supabase.rpc("consume_credit", { _amount: cost });
     if (cErr) throw cErr;
     if (!ok) {
-      return new Response(JSON.stringify({ error: "no_credits" }), { status: 402, headers: { ...cors, "Content-Type": "application/json" } });
+      return new Response(JSON.stringify({ error: "no_credits", cost }), { status: 402, headers: { ...cors, "Content-Type": "application/json" } });
     }
 
     const { sys, user } = buildPrompt(tool, lang, input);

@@ -4,7 +4,25 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 const cors = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+  "Access-Control-Allow-Methods": "POST, OPTIONS",
+  "Access-Control-Max-Age": "86400",
 };
+
+// Credit cost heuristics (JDS Business AI)
+function computeCost(messages: Msg[]): number {
+  const last = messages[messages.length - 1];
+  if (!last) return 1;
+  const attCount = last.attachments?.length ?? 0;
+  const imageCount = last.attachments?.filter((a) => a.type.startsWith("image/")).length ?? 0;
+  const textLen = (last.content ?? "").length +
+    (last.attachments?.reduce((s, a) => s + (a.text?.length ?? 0), 0) ?? 0);
+  let cost = 1;
+  if (textLen > 2000) cost += 1;
+  if (textLen > 8000) cost += 2;
+  cost += imageCount * 2;
+  cost += Math.max(0, attCount - imageCount); // +1 per non-image attachment
+  return Math.min(cost, 10);
+}
 
 interface Attachment {
   name: string;
@@ -41,10 +59,11 @@ Deno.serve(async (req) => {
       return new Response(JSON.stringify({ error: "forbidden" }), { status: 403, headers: { ...cors, "Content-Type": "application/json" } });
     }
 
-    const { data: ok, error: cErr } = await supabase.rpc("consume_credit");
+    const cost = computeCost(messages);
+    const { data: ok, error: cErr } = await supabase.rpc("consume_credit", { _amount: cost });
     if (cErr) throw cErr;
     if (!ok) {
-      return new Response(JSON.stringify({ error: "no_credits" }), { status: 402, headers: { ...cors, "Content-Type": "application/json" } });
+      return new Response(JSON.stringify({ error: "no_credits", cost }), { status: 402, headers: { ...cors, "Content-Type": "application/json" } });
     }
 
     const langName = lang === "en" ? "English" : "German (Deutsch)";
@@ -121,7 +140,7 @@ Deno.serve(async (req) => {
     });
     await supabase.from("chat_conversations").update({ updated_at: new Date().toISOString() }).eq("id", conversationId);
 
-    return new Response(JSON.stringify({ content }), { headers: { ...cors, "Content-Type": "application/json" } });
+    return new Response(JSON.stringify({ content, cost }), { headers: { ...cors, "Content-Type": "application/json" } });
   } catch (e) {
     console.error(e);
     return new Response(JSON.stringify({ error: e instanceof Error ? e.message : "unknown" }), { status: 500, headers: { ...cors, "Content-Type": "application/json" } });

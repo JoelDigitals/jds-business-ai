@@ -311,7 +311,7 @@ function ChatPage() {
                 </Button>
               </div>
               <p className="mt-2 text-[10px] text-muted-foreground">
-                1 Credit pro Antwort · Bilder & Textdateien werden analysiert · max 5 Dateien à 8 MB · Enter senden, Shift+Enter Zeilenumbruch
+                Credit-Kosten je nach Länge & Anhängen (1–10) · Bilder & Textdateien werden analysiert · max 5 Dateien à 8 MB · Enter senden, Shift+Enter Zeilenumbruch
               </p>
             </div>
           </section>
