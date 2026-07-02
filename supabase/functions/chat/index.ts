@@ -140,7 +140,7 @@ Deno.serve(async (req) => {
     });
     await supabase.from("chat_conversations").update({ updated_at: new Date().toISOString() }).eq("id", conversationId);
 
-    return new Response(JSON.stringify({ content }), { headers: { ...cors, "Content-Type": "application/json" } });
+    return new Response(JSON.stringify({ content, cost }), { headers: { ...cors, "Content-Type": "application/json" } });
   } catch (e) {
     console.error(e);
     return new Response(JSON.stringify({ error: e instanceof Error ? e.message : "unknown" }), { status: 500, headers: { ...cors, "Content-Type": "application/json" } });
