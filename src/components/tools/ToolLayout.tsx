@@ -159,7 +159,7 @@ export function ToolLayout({ toolKey, title, buildTitle, children, initial, lega
                 {generating ? (
                   <><Loader2 className="h-4 w-4 animate-spin" />{t("tool.generating")}</>
                 ) : (
-                  <><Sparkles className="h-4 w-4" />{t("tool.generate")} (1 Credit)</>
+                  <><Sparkles className="h-4 w-4" />{t("tool.generate")} ({cost} Credits)</>
                 )}
               </Button>
             </div>
