@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Header, Footer } from "@/components/layout/Header";
 import { Button } from "@/components/ui/button";
@@ -49,7 +49,7 @@ function Contact() {
                       <a href="mailto:support@joel-digitals.com" className="hover:text-gold">support@joel-digitals.com</a>
                     </p>
                     <p className="mt-1 text-xs text-muted-foreground">
-                      Oder über das <a href="https://joel-digitals.de/support" target="_blank" rel="noopener noreferrer" className="text-gold hover:underline">Support-Portal</a>.
+                      Oder über unser <Link to="/contact" className="text-gold hover:underline">Support-Portal</Link>.
                     </p>
                   </div>
                 </div>

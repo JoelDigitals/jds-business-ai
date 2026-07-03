@@ -13,6 +13,14 @@ import { downloadPdf } from "@/lib/pdf";
 
 export type ToolKey = "business" | "imprint" | "privacy" | "legal" | "contract";
 
+const TOOL_COST: Record<ToolKey, number> = {
+  business: 5,
+  contract: 4,
+  privacy: 3,
+  imprint: 2,
+  legal: 2,
+};
+
 interface Props {
   toolKey: ToolKey;
   title: string;
@@ -42,8 +50,10 @@ export function ToolLayout({ toolKey, title, buildTitle, children, initial, lega
 
   const set = (k: string, v: string) => setInput((p) => ({ ...p, [k]: v }));
 
+  const cost = TOOL_COST[toolKey];
+
   const generate = async () => {
-    if (!profile || profile.credits <= 0) {
+    if (!profile || profile.credits < cost) {
       toast.error(t("tool.no.credits"));
       return;
     }
@@ -149,7 +159,7 @@ export function ToolLayout({ toolKey, title, buildTitle, children, initial, lega
                 {generating ? (
                   <><Loader2 className="h-4 w-4 animate-spin" />{t("tool.generating")}</>
                 ) : (
-                  <><Sparkles className="h-4 w-4" />{t("tool.generate")} (1 Credit)</>
+                  <><Sparkles className="h-4 w-4" />{t("tool.generate")} ({cost} Credits)</>
                 )}
               </Button>
             </div>
