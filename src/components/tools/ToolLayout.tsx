@@ -13,6 +13,14 @@ import { downloadPdf } from "@/lib/pdf";
 
 export type ToolKey = "business" | "imprint" | "privacy" | "legal" | "contract";
 
+const TOOL_COST: Record<ToolKey, number> = {
+  business: 5,
+  contract: 4,
+  privacy: 3,
+  imprint: 2,
+  legal: 2,
+};
+
 interface Props {
   toolKey: ToolKey;
   title: string;
