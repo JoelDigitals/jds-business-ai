@@ -50,8 +50,10 @@ export function ToolLayout({ toolKey, title, buildTitle, children, initial, lega
 
   const set = (k: string, v: string) => setInput((p) => ({ ...p, [k]: v }));
 
+  const cost = TOOL_COST[toolKey];
+
   const generate = async () => {
-    if (!profile || profile.credits <= 0) {
+    if (!profile || profile.credits < cost) {
       toast.error(t("tool.no.credits"));
       return;
     }
