@@ -3,6 +3,7 @@ import { useAuth } from "@/lib/auth";
 import { useI18n } from "@/lib/i18n";
 import { Button } from "@/components/ui/button";
 import { Globe, LogOut, Shield, Sparkles } from "lucide-react";
+import { openCookieSettings } from "@/components/CookieBanner";
 import logo from "@/assets/jds-logo.png";
 
 export function Header() {
