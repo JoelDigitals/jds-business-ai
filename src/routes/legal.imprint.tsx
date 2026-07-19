@@ -47,7 +47,7 @@ function ImprintPage() {
           </p>
 
           <h2 className="mt-8 text-2xl font-semibold">Redaktionell verantwortlich</h2>
-          <p className="mt-2">Joel Schäfer (Anschrift wie oben)</p>
+          <p className="mt-2">Joel Nicolay (Anschrift wie oben)</p>
 
           <h2 className="mt-8 text-2xl font-semibold">EU-Streitschlichtung</h2>
           <p className="mt-2">
