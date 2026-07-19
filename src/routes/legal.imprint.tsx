@@ -22,9 +22,9 @@ function ImprintPage() {
 
           <section className="mt-8 space-y-1">
             <p className="font-semibold">Joel Digitals</p>
-            <p>Inhaber: Joel Schäfer</p>
-            <p>Musterstraße 12</p>
-            <p>10115 Berlin</p>
+            <p>Inhaber: Joel Nicolay</p>
+            <p>Niederwiesstraße 20</p>
+            <p>66822 Lebach</p>
             <p>Deutschland</p>
           </section>
 
