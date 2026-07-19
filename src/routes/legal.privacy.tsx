@@ -24,7 +24,7 @@ function PrivacyPage() {
 
           <h2 className="mt-8 text-2xl font-semibold">1. Verantwortlicher</h2>
           <p className="mt-2">
-            Joel Digitals, Inhaber Joel Schäfer, Musterstraße 12, 10115 Berlin, Deutschland.
+            Joel Digitals, Inhaber Joel Nicolay, Niederwiesstraße 20, 66822 Lebach, Deutschland.
             <br />
             E-Mail:{" "}
             <a href="mailto:support@joel-digitals.com" className="text-gold hover:underline">
