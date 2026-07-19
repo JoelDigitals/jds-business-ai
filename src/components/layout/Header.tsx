@@ -99,9 +99,11 @@ export function Footer() {
           <Sparkles className="h-4 w-4 text-gold" />
           <span>© {new Date().getFullYear()} JDS Business AI. {t("footer.rights")}</span>
         </div>
-        <div className="flex gap-6">
+        <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
           <Link to="/legal/imprint" className="hover:text-foreground">{t("footer.imprint")}</Link>
           <Link to="/legal/privacy" className="hover:text-foreground">{t("footer.privacy")}</Link>
+          <Link to="/legal/terms" className="hover:text-foreground">Nutzungsbedingungen</Link>
+          <button type="button" onClick={openCookieSettings} className="hover:text-foreground">Cookie-Einstellungen</button>
         </div>
       </div>
     </footer>
