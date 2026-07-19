@@ -27,6 +27,7 @@ import { Route as ToolsLegalRouteImport } from './routes/tools.legal'
 import { Route as ToolsImprintRouteImport } from './routes/tools.imprint'
 import { Route as ToolsContractRouteImport } from './routes/tools.contract'
 import { Route as ToolsBusinessRouteImport } from './routes/tools.business'
+import { Route as LegalTermsRouteImport } from './routes/legal.terms'
 import { Route as LegalPrivacyRouteImport } from './routes/legal.privacy'
 import { Route as LegalImprintRouteImport } from './routes/legal.imprint'
 
@@ -120,6 +121,11 @@ const ToolsBusinessRoute = ToolsBusinessRouteImport.update({
   path: '/tools/business',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LegalTermsRoute = LegalTermsRouteImport.update({
+  id: '/legal/terms',
+  path: '/legal/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LegalPrivacyRoute = LegalPrivacyRouteImport.update({
   id: '/legal/privacy',
   path: '/legal/privacy',
@@ -147,6 +153,7 @@ export interface FileRoutesByFullPath {
   '/use-cases': typeof UseCasesRoute
   '/legal/imprint': typeof LegalImprintRoute
   '/legal/privacy': typeof LegalPrivacyRoute
+  '/legal/terms': typeof LegalTermsRoute
   '/tools/business': typeof ToolsBusinessRoute
   '/tools/contract': typeof ToolsContractRoute
   '/tools/imprint': typeof ToolsImprintRoute
@@ -169,6 +176,7 @@ export interface FileRoutesByTo {
   '/use-cases': typeof UseCasesRoute
   '/legal/imprint': typeof LegalImprintRoute
   '/legal/privacy': typeof LegalPrivacyRoute
+  '/legal/terms': typeof LegalTermsRoute
   '/tools/business': typeof ToolsBusinessRoute
   '/tools/contract': typeof ToolsContractRoute
   '/tools/imprint': typeof ToolsImprintRoute
@@ -192,6 +200,7 @@ export interface FileRoutesById {
   '/use-cases': typeof UseCasesRoute
   '/legal/imprint': typeof LegalImprintRoute
   '/legal/privacy': typeof LegalPrivacyRoute
+  '/legal/terms': typeof LegalTermsRoute
   '/tools/business': typeof ToolsBusinessRoute
   '/tools/contract': typeof ToolsContractRoute
   '/tools/imprint': typeof ToolsImprintRoute
@@ -216,6 +225,7 @@ export interface FileRouteTypes {
     | '/use-cases'
     | '/legal/imprint'
     | '/legal/privacy'
+    | '/legal/terms'
     | '/tools/business'
     | '/tools/contract'
     | '/tools/imprint'
@@ -238,6 +248,7 @@ export interface FileRouteTypes {
     | '/use-cases'
     | '/legal/imprint'
     | '/legal/privacy'
+    | '/legal/terms'
     | '/tools/business'
     | '/tools/contract'
     | '/tools/imprint'
@@ -260,6 +271,7 @@ export interface FileRouteTypes {
     | '/use-cases'
     | '/legal/imprint'
     | '/legal/privacy'
+    | '/legal/terms'
     | '/tools/business'
     | '/tools/contract'
     | '/tools/imprint'
@@ -283,6 +295,7 @@ export interface RootRouteChildren {
   UseCasesRoute: typeof UseCasesRoute
   LegalImprintRoute: typeof LegalImprintRoute
   LegalPrivacyRoute: typeof LegalPrivacyRoute
+  LegalTermsRoute: typeof LegalTermsRoute
   ToolsBusinessRoute: typeof ToolsBusinessRoute
   ToolsContractRoute: typeof ToolsContractRoute
   ToolsImprintRoute: typeof ToolsImprintRoute
@@ -418,6 +431,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ToolsBusinessRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/legal/terms': {
+      id: '/legal/terms'
+      path: '/legal/terms'
+      fullPath: '/legal/terms'
+      preLoaderRoute: typeof LegalTermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/legal/privacy': {
       id: '/legal/privacy'
       path: '/legal/privacy'
@@ -451,6 +471,7 @@ const rootRouteChildren: RootRouteChildren = {
   UseCasesRoute: UseCasesRoute,
   LegalImprintRoute: LegalImprintRoute,
   LegalPrivacyRoute: LegalPrivacyRoute,
+  LegalTermsRoute: LegalTermsRoute,
   ToolsBusinessRoute: ToolsBusinessRoute,
   ToolsContractRoute: ToolsContractRoute,
   ToolsImprintRoute: ToolsImprintRoute,

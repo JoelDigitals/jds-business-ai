@@ -39,7 +39,7 @@ function TermsPage() {
             und Zugangsdaten vertraulich zu behandeln. Ein Anspruch auf Registrierung besteht nicht.
           </p>
 
-          <h2 className="mt-8 text-2xl function-semibold text-2xl font-semibold">§ 4 Preise, Codes &amp; Laufzeit</h2>
+          <h2 className="mt-8 text-2xl font-semibold">§ 4 Preise, Codes &amp; Laufzeit</h2>
           <p className="mt-2 text-muted-foreground">
             Kostenpflichtige Pläne werden über Codes freigeschaltet, die im Shop unter joel-digitals.de erworben werden.
             Credits werden gemäß Plan monatlich zurückgesetzt. Bereits verbrauchte Credits werden nicht erstattet.
