@@ -23,7 +23,7 @@ function TermsPage() {
           <h2 className="mt-8 text-2xl font-semibold">§ 1 Geltungsbereich</h2>
           <p className="mt-2 text-muted-foreground">
             Diese Nutzungsbedingungen regeln die Nutzung der Plattform „JDS Business AI" (nachfolgend „Plattform"),
-            betrieben von Joel Digitals, Inhaber Joel Schäfer.
+            betrieben von Joel Digitals, Inhaber Joel Nicolay, Niederwiesstraße 20, 66822 Lebach.
           </p>
 
           <h2 className="mt-8 text-2xl font-semibold">§ 2 Leistungen</h2>

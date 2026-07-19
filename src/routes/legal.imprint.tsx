@@ -22,9 +22,9 @@ function ImprintPage() {
 
           <section className="mt-8 space-y-1">
             <p className="font-semibold">Joel Digitals</p>
-            <p>Inhaber: Joel Schäfer</p>
-            <p>Musterstraße 12</p>
-            <p>10115 Berlin</p>
+            <p>Inhaber: Joel Nicolay</p>
+            <p>Niederwiesstraße 20</p>
+            <p>66822 Lebach</p>
             <p>Deutschland</p>
           </section>
 
@@ -47,7 +47,7 @@ function ImprintPage() {
           </p>
 
           <h2 className="mt-8 text-2xl font-semibold">Redaktionell verantwortlich</h2>
-          <p className="mt-2">Joel Schäfer (Anschrift wie oben)</p>
+          <p className="mt-2">Joel Nicolay (Anschrift wie oben)</p>
 
           <h2 className="mt-8 text-2xl font-semibold">EU-Streitschlichtung</h2>
           <p className="mt-2">
@@ -81,6 +81,10 @@ function ImprintPage() {
             Die durch den Seitenbetreiber erstellten Inhalte und Werke unterliegen dem deutschen Urheberrecht.
             Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des
             Urheberrechts bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers.
+          </p>
+
+          <p className="mt-12 text-sm text-muted-foreground">
+            © 2026 JDS Business AI by Joel Digitals
           </p>
         </article>
       </main>
