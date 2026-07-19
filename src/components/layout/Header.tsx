@@ -97,7 +97,7 @@ export function Footer() {
       <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-6 md:flex-row">
         <div className="flex items-center gap-2">
           <Sparkles className="h-4 w-4 text-gold" />
-          <span>© {new Date().getFullYear()} JDS Business AI. {t("footer.rights")}</span>
+          <span>© 2026 JDS Business AI by Joel Digitals</span>
         </div>
         <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
           <Link to="/legal/imprint" className="hover:text-foreground">{t("footer.imprint")}</Link>
