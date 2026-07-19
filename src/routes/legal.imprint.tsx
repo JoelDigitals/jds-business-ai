@@ -82,6 +82,10 @@ function ImprintPage() {
             Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des
             Urheberrechts bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers.
           </p>
+
+          <p className="mt-12 text-sm text-muted-foreground">
+            © 2026 JDS Business AI by Joel Digitals
+          </p>
         </article>
       </main>
       <Footer />
